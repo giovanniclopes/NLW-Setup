@@ -1,10 +1,16 @@
 import { FastifyInstance } from 'fastify';
+import { z } from 'zod';
 import { prisma } from './lib/prisma';
 
 export async function AppRoutes(app: FastifyInstance) {
-  app.get('/hello', async () => {
-    const habits = await prisma.habit.findMany()
+  app.post('/habits', async (request) => {
+    const createHabitBody = z.object({
+      title: z.string(),
+      weekDays: z.array(
+        z.number().min(0).max(6)
+        )
+    })
 
-    return habits
+    const { title, weekDays } = createHabitBody.parse(request.body)
   })
 }
