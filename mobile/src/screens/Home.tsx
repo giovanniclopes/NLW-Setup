@@ -1,3 +1,4 @@
+import '../lib/dayjs';
 import { View, Text, ScrollView } from "react-native";
 
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
@@ -15,7 +16,7 @@ export function Home() {
     <View className="flex-1 bg-background px-8 pt-16">
       <Header />
 
-      <View className="flex-row mt-6 mb-2">
+      <View className="flex-row mt-10 mb-2">
         {weekDays.map((weekDay, i) => (
           <Text
             key={`${weekDay}-${i}`}
@@ -29,7 +30,7 @@ export function Home() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: 50 }}
       >
         <View className="flex-row flex-wrap">
           {datesFromYearStart.map((date) => (
@@ -38,6 +39,7 @@ export function Home() {
           {amountOfDaysToFill > 0 &&
             Array.from({ length: amountOfDaysToFill }).map((_, index) => (
               <View
+                key={index}
                 className="bg-zinc-900 rounded-lg border-2 border-zinc-800 m-1 opacity-40"
                 style={{ width: DAY_SIZE, height: DAY_SIZE }}
               />
