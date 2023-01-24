@@ -35,7 +35,8 @@ export function Home() {
       setSummary(response.data);
     } catch (error) {
       Alert.alert("Ops", "Não foi possível carregar o sumário de hábitos.");
-      console.log(error);
+      console.log(`An error has occured: [${error}]`);
+      
     } finally {
       setLoading(false);
     }
