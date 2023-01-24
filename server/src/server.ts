@@ -11,8 +11,8 @@ app.register(cors)
 app.register(appRoutes)
 
 app.listen({
-  path: process.env.PATH_URL,
-  port: 3333
+  port: 3333,
+  host: process.env.HOST_URL,
 }).then(() => {
   console.log('HTTP Server Running!')
 })
