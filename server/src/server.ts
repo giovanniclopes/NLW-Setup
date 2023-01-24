@@ -1,17 +1,11 @@
 import Fastify from "fastify";
 import cors from '@fastify/cors';
-import { AppRoutes } from './routes';
+import { appRoutes } from './routes';
 
 const app = Fastify()
 
 app.register(cors)
-app.register(AppRoutes)
-
-/* 
-* Método HTTP: Get, Post, Put, Patch, Delete
-*/
-
-
+app.register(appRoutes)
 
 app.listen({
   port: 3333
