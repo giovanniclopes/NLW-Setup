@@ -24,7 +24,7 @@ const avaliableWeekDays = [
 ];
 
 export function New() {
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState("");
   const [weekDays, setWeekDays] = useState<number[]>([]);
 
   function handleToggleWeekDay(weekDayIndex: number) {
@@ -40,17 +40,20 @@ export function New() {
   async function handleCreateNewHabit() {
     try {
       if (!title.trim() || weekDays.length === 0) {
-        Alert.alert('Novo hábito', 'Informe o nome do hábito e escolha a periodicidade.')
+        Alert.alert(
+          "Novo hábito",
+          "Informe o nome do hábito e escolha a periodicidade."
+        );
       }
-      await api.post('/habits', { title, weekDays });
+      await api.post("/habits", { title, weekDays });
 
-      setTitle('')
-      setWeekDays([])
+      setTitle("");
+      setWeekDays([]);
 
-      Alert.alert('Novo hábito', 'Hábito criado com sucesso!')
+      Alert.alert("Novo hábito", "Hábito criado com sucesso!");
     } catch (error) {
-      console.log(error)
-      Alert.alert('Ops', 'Não foi possível criar o novo hábito')
+      console.log(error);
+      Alert.alert("Ops", "Não foi possível criar o novo hábito");
     }
   }
 
