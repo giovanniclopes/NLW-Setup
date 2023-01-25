@@ -12,6 +12,9 @@ module.exports = {
         bold: "Inter_700Bold",
         extrabold: "Inter_800ExtraBold",
       },
+      gridTemplateRows: {
+        7: "repeat(7, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [],

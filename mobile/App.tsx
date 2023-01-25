@@ -1,4 +1,6 @@
-import { StyleSheet, StatusBar } from "react-native";
+import "./src/lib/dayjs";
+
+import { StatusBar } from "react-native";
 import {
   useFonts,
   Inter_400Regular,
@@ -8,8 +10,7 @@ import {
 } from "@expo-google-fonts/inter";
 
 import { Loading } from "./src/components/Loading";
-import { Routes } from './src/routes';
-import './src/lib/dayjs'
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,9 +21,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   return (
