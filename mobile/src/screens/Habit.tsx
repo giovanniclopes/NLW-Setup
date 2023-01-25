@@ -11,7 +11,7 @@ import { HabitsEmpty } from "../components/HabitsEmpty";
 
 import { api } from "./../lib/axios";
 import { generateProgressPercentage } from "../utils/generate-progress-percentage";
-import { clsx } from 'clsx';
+import { clsx } from "clsx";
 
 interface Params {
   date: string;
@@ -34,7 +34,7 @@ export function Habit() {
   const { date } = route.params as Params;
 
   const parsedDate = dayjs(date);
-  const isDateInPast = parsedDate.endOf('day').isBefore(new Date());
+  const isDateInPast = parsedDate.endOf("day").isBefore(new Date());
   const dayOfWeek = parsedDate.format("dddd");
   const dayAndMonth = parsedDate.format("DD/MM");
 
@@ -63,12 +63,18 @@ export function Habit() {
   }
 
   async function handleToggleHabit(habitId: string) {
-    if (completedHabits.includes(habitId)) {
-      setCompletedHabits((prevState) =>
-        prevState.filter((habit) => habit !== habitId)
-      );
-    } else {
-      setCompletedHabits((prevState) => [...prevState, habitId]);
+    try {
+      await api.patch(`/habits/${habitId}/toggle`);
+      if (completedHabits.includes(habitId)) {
+        setCompletedHabits((prevState) =>
+          prevState.filter((habit) => habit !== habitId)
+        );
+      } else {
+        setCompletedHabits((prevState) => [...prevState, habitId]);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Ops", "Não foi possível atualizar o status do hábito.");
     }
   }
 
@@ -98,9 +104,11 @@ export function Habit() {
 
         <ProgressBar progress={habitsProgress} />
 
-        <View className={clsx("mt-6", {
-          ["opacity-50"] : isDateInPast
-        })}>
+        <View
+          className={clsx("mt-6", {
+            ["opacity-50"]: isDateInPast,
+          })}
+        >
           {dayInfo?.possibleHabits ? (
             dayInfo?.possibleHabits.map((habit) => (
               <Checkbox
@@ -116,13 +124,11 @@ export function Habit() {
           )}
         </View>
 
-        {
-          isDateInPast && (
-            <Text className="text-white mt-10 text-center">
-              Você não pode editar um hábito de uma data passada.
-            </Text>
-          )
-        }
+        {isDateInPast && (
+          <Text className="text-white mt-10 text-center">
+            Você não pode editar um hábito de uma data passada.
+          </Text>
+        )}
       </ScrollView>
     </View>
   );
